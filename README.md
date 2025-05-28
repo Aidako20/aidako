@@ -1,24 +1,22 @@
-Flectra 3.0 
-------------
-#!/bin/bash
-sudo adduser --system --quiet --shell=/bin/bash --home=/opt/flectra --gecos 'flectra' --group flectra
-sudo mkdir /etc/flectra && mkdir /var/log/flectra/
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install postgresql postgresql-server-dev-14 build-essential python3-pillow python3-lxml python3-dev python3-pip python3-setuptools npm nodejs git gdebi libldap2-dev libpq-dev libsasl2-dev libxml2-dev libxslt1-dev libjpeg-dev -y
-sudo pip3 install --upgrade pip
-sudo service postgresql restart
-git clone --depth=1 --branch=3.0 https://gitlab.com/flectra-hq/flectra.git /opt/flectra/flectra
-sudo chown flectra:flectra /opt/flectra/ -R && sudo chown flectra:flectra /var/log/flectra/ -R && cd /opt/flectra/flectra && sudo pip3 install -r requirements.txt
-sudo ./setup/debinstall.sh
-sudo npm install -g less less-plugin-clean-css rtlcss -y
-cd /tmp && wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb && sudo gdebi -n wkhtmltox_0.12.6.1-3.jammy_amd64.deb && rm wkhtmltox_0.12.6.1-3.jammy_amd64.deb
-sudo ln -s /usr/local/bin/wkhtmltopdf /usr/bin/ && sudo ln -s /usr/local/bin/wkhtmltoimage /usr/bin/
-sudo su - postgres -c "createuser -s flectra"
-sudo su - flectra -c "/opt/flectra/flectra/flectra-bin --addons-path=/opt/flectra/flectra/addons -s --stop-after-init"
-sudo mv /opt/flectra/.flectrarc /etc/flectra/flectra.conf
-sudo sed -i "s,^\(logfile = \).*,\1"/var/log/flectra/flectra-server.log"," /etc/flectra/flectra.conf
-sudo sed -i "s,^\(logrotate = \).*,\1"True"," /etc/flectra/flectra.conf
-sudo sed -i "s,^\(proxy_mode = \).*,\1"True"," /etc/flectra/flectra.conf
-sudo cp /opt/flectra/flectra/debian/init /etc/init.d/flectra && chmod +x /etc/init.d/flectra
-sudo ln -s /opt/flectra/flectra/flectra-bin /usr/bin/flectra
-sudo update-rc.d -f flectra start 20 2 3 4 5 .
-sudo service flectra restart
+<div class="blob-content gl-flex gl-w-full gl-flex-col gl-overflow-y-auto"><pre class="code highlight !gl-p-0"><code data-blob-hash="8734431499495818"><span lang="shell" class="line" id="LC1"><span class="c">#!/bin/bash</span></span>
+<span lang="shell" class="line" id="LC2"><span class="nb">sudo </span>adduser <span class="nt">--system</span> <span class="nt">--quiet</span> <span class="nt">--shell</span><span class="o">=</span>/bin/bash <span class="nt">--home</span><span class="o">=</span>/opt/flectra <span class="nt">--gecos</span> <span class="s1">'flectra'</span> <span class="nt">--group</span> flectra</span>
+<span lang="shell" class="line" id="LC3"><span class="nb">sudo mkdir</span> /etc/flectra <span class="o">&amp;&amp;</span> <span class="nb">mkdir</span> /var/log/flectra/</span>
+<span lang="shell" class="line" id="LC4"><span class="nb">sudo </span>apt-get update <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>apt-get upgrade <span class="nt">-y</span> <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>apt-get <span class="nb">install </span>postgresql postgresql-server-dev-14 build-essential python3-pillow python3-lxml python3-dev python3-pip python3-setuptools npm nodejs git gdebi libldap2-dev libpq-dev libsasl2-dev libxml2-dev libxslt1-dev libjpeg-dev <span class="nt">-y</span></span>
+<span lang="shell" class="line" id="LC5"><span class="nb">sudo </span>pip3 <span class="nb">install</span> <span class="nt">--upgrade</span> pip</span>
+<span lang="shell" class="line" id="LC6"><span class="nb">sudo </span>service postgresql restart</span>
+<span lang="shell" class="line" id="LC7">git clone <span class="nt">--depth</span><span class="o">=</span>1 <span class="nt">--branch</span><span class="o">=</span>3.0 https://gitlab.com/flectra-hq/flectra.git /opt/flectra/flectra</span>
+<span lang="shell" class="line" id="LC8"><span class="nb">sudo chown </span>flectra:flectra /opt/flectra/ <span class="nt">-R</span> <span class="o">&amp;&amp;</span> <span class="nb">sudo chown </span>flectra:flectra /var/log/flectra/ <span class="nt">-R</span> <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /opt/flectra/flectra <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>pip3 <span class="nb">install</span> <span class="nt">-r</span> requirements.txt</span>
+ </span> sudo ./setup/debinstall.sh</span>
+<span lang="shell" class="line" id="LC9"><span class="nb">sudo </span>npm <span class="nb">install</span> <span class="nt">-g</span> less less-plugin-clean-css rtlcss <span class="nt">-y</span></span>
+<span lang="shell" class="line" id="LC10"><span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>gdebi <span class="nt">-n</span> wkhtmltox_0.12.6.1-3.jammy_amd64.deb <span class="o">&amp;&amp;</span> <span class="nb">rm </span>wkhtmltox_0.12.6.1-3.jammy_amd64.deb</span>
+<span lang="shell" class="line" id="LC11"><span class="nb">sudo ln</span> <span class="nt">-s</span> /usr/local/bin/wkhtmltopdf /usr/bin/ <span class="o">&amp;&amp;</span> <span class="nb">sudo ln</span> <span class="nt">-s</span> /usr/local/bin/wkhtmltoimage /usr/bin/</span>
+<span lang="shell" class="line" id="LC12"><span class="nb">sudo </span>su - postgres <span class="nt">-c</span> <span class="s2">"createuser -s flectra"</span></span>
+<span lang="shell" class="line" id="LC13"><span class="nb">sudo </span>su - flectra <span class="nt">-c</span> <span class="s2">"/opt/flectra/flectra/flectra-bin --addons-path=/opt/flectra/flectra/addons -s --stop-after-init"</span></span>
+<span lang="shell" class="line" id="LC14"><span class="nb">sudo mv</span> /opt/flectra/.flectrarc /etc/flectra/flectra.conf</span>
+<span lang="shell" class="line" id="LC15"><span class="nb">sudo sed</span> <span class="nt">-i</span> <span class="s2">"s,^</span><span class="se">\(</span><span class="s2">logfile = </span><span class="se">\)</span><span class="s2">.*,</span><span class="se">\1</span><span class="s2">"</span>/var/log/flectra/flectra-server.log<span class="s2">","</span> /etc/flectra/flectra.conf</span>
+<span lang="shell" class="line" id="LC16"><span class="nb">sudo sed</span> <span class="nt">-i</span> <span class="s2">"s,^</span><span class="se">\(</span><span class="s2">logrotate = </span><span class="se">\)</span><span class="s2">.*,</span><span class="se">\1</span><span class="s2">"</span>True<span class="s2">","</span> /etc/flectra/flectra.conf</span>
+<span lang="shell" class="line" id="LC17"><span class="nb">sudo sed</span> <span class="nt">-i</span> <span class="s2">"s,^</span><span class="se">\(</span><span class="s2">proxy_mode = </span><span class="se">\)</span><span class="s2">.*,</span><span class="se">\1</span><span class="s2">"</span>True<span class="s2">","</span> /etc/flectra/flectra.conf</span>
+<span lang="shell" class="line" id="LC18"><span class="nb">sudo cp</span> /opt/flectra/flectra/debian/init /etc/init.d/flectra <span class="o">&amp;&amp;</span> <span class="nb">chmod</span> +x /etc/init.d/flectra</span>
+<span lang="shell" class="line" id="LC19"><span class="nb">sudo ln</span> <span class="nt">-s</span> /opt/flectra/flectra/flectra-bin /usr/bin/flectra</span>
+<span lang="shell" class="line" id="LC20"><span class="nb">sudo </span>update-rc.d <span class="nt">-f</span> flectra start 20 2 3 4 5 <span class="nb">.</span></span>
+<span lang="shell" class="line" id="LC21"><span class="nb">sudo </span>service flectra restart</span></code></pre></div>
